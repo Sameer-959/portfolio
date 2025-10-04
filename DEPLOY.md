@@ -16,13 +16,13 @@ cd e:\Portfolio\portfolio
 git init
 git add .
 git commit -m "Initial portfolio"
-# Create a repo on GitHub named 'portfolio' under your account 'sameeramir959' using the web UI.
-git remote add origin https://github.com/sameeramir959/portfolio.git
+# Create a repo on GitHub named 'portfolio' under your account 'Sameer-959' using the web UI.
+git remote add origin https://github.com/Sameer-959/portfolio.git
 git branch -M main
 git push -u origin main
 ```
 
-If the repo already exists or you use a different workflow (GitHub desktop), just make sure the remote points to `https://github.com/sameeramir959/portfolio.git` and push `main`.
+If the repo already exists or you use a different workflow (GitHub desktop), just make sure the remote points to `https://github.com/Sameer-959/portfolio.git` and push `main`.
 
 1) Deploy client to Vercel (recommended)
 

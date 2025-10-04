@@ -12,7 +12,7 @@ let cachedRepos = []
 let lastFetched = 0
 const CACHE_TTL = process.env.CACHE_TTL_MS ? parseInt(process.env.CACHE_TTL_MS, 10) : 5 * 60 * 1000 // 5 minutes
 
-const GITHUB_USERNAME = process.env.GITHUB_USERNAME || 'sameeramir959'
+const GITHUB_USERNAME = process.env.GITHUB_USERNAME || 'Sameer-959'
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '' // optional, increases rate limit
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || '' // optional, used to verify webhook signatures
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'sameeramir959@gmail.com' // where to send contact form emails (optional)

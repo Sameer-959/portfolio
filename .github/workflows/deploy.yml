@@ -5,6 +5,30 @@ on:
     branches: [ main ]
 
 jobs:
+  check-secrets:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.check.outputs.ok }}
+    steps:
+      - name: Check required secrets
+        id: check
+        run: |
+          missing=()
+          # Vercel secrets
+          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then missing+=(VERCEL_TOKEN); fi
+          if [ -z "${{ secrets.VERCEL_ORG_ID }}" ]; then missing+=(VERCEL_ORG_ID); fi
+          if [ -z "${{ secrets.VERCEL_PROJECT_ID }}" ]; then missing+=(VERCEL_PROJECT_ID); fi
+          # Render secrets
+          if [ -z "${{ secrets.RENDER_API_KEY }}" ]; then missing+=(RENDER_API_KEY); fi
+          if [ -z "${{ secrets.RENDER_SERVICE_ID }}" ]; then missing+=(RENDER_SERVICE_ID); fi
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "Missing required secrets: ${missing[*]}"
+            echo "::error::Missing required secrets: ${missing[*]}"
+            exit 1
+          fi
+          echo "All required secrets present"
+          echo "::set-output name=ok::true"
+
   deploy-client:
     runs-on: ubuntu-latest
     steps:
@@ -28,4 +52,3 @@ jobs:
         with:
           api_key: ${{ secrets.RENDER_API_KEY }}
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
-*** End Patch
