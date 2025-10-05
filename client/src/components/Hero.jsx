@@ -93,7 +93,7 @@ export default function Hero() {
         <section className="min-h-screen flex items-center justify-center px-6">
           <div className="max-w-3xl text-center p-8">
             <div className="mx-auto w-32 h-32 rounded-full bg-neutral-900/40 ring-1 ring-white/10 overflow-hidden float-avatar mb-6" data-reveal data-anim="zoom-in">
-              <img src="/src/assets/pfp.jpg" alt="Profile" className="w-full h-full object-cover" />
+              <img src="/assets/pfp.jpg" alt="Profile" className="w-full h-full object-cover" />
             </div>
             <h1 className="text-5xl font-extrabold mb-6" data-reveal data-anim="fade-up"><span id="hero-name" className="bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">Sameer Aamir</span></h1>
             <p className="mt-2 text-gray-300 max-w-2xl mx-auto mb-6" data-reveal data-anim="fade-in">I’m a Machine Learning and Full‑Stack Developer who enjoys turning ideas into polished, fast, and accessible products. I love shipping clean UIs, thoughtful APIs, and data‑driven features — from model training to deployment — with a strong focus on developer experience and performance.</p>
@@ -110,7 +110,7 @@ export default function Hero() {
         <section className="mt-16 max-w-5xl mx-auto px-6" data-reveal data-anim="fade-in">
           <h2 className="text-2xl font-bold mb-4">Work Experience</h2>
           <div className="bg-neutral-900/30 rounded-xl p-4 ring-1 ring-white/6 flex items-start gap-4">
-            <img src="/src/assets/arbisoft.png" alt="Arbisoft logo" className="w-12 h-12 rounded object-contain bg-white/5 flex-shrink-0" />
+            <img src="/assets/arbisoft.png" alt="Arbisoft logo" className="w-12 h-12 rounded object-contain bg-white/5 flex-shrink-0" />
             <div>
               <div className="text-gray-200 font-semibold">Arbisoft — ML Intern</div>
               <div className="text-sm text-gray-400">2025 • Lahore, PK</div>
@@ -173,21 +173,21 @@ export default function Hero() {
             <h3 className="font-semibold">Education</h3>
             <div className="mt-3">
               <a href="https://itu.edu.pk" target="_blank" rel="noreferrer" className="itu-link inline-flex items-center gap-4 p-2 rounded" aria-label="Visit Information Technology University website">
-                <img src="/src/assets/itu.jpeg" alt="Information Technology University logo" className="w-14 h-14 rounded object-cover itu-badge" />
+                <img src="/assets/itu.jpeg" alt="Information Technology University logo" className="w-14 h-14 rounded object-cover itu-badge" />
                 <div>
                   <div className="text-gray-200 font-medium">Information Technology University</div>
                   <div className="text-sm text-gray-400">B.S. Computer Science (2023–2027)</div>
                 </div>
               </a>
               <a href="https://www.pgc.edu" target="_blank" rel="noreferrer" className="itu-link inline-flex items-center gap-4 p-2 rounded mt-4">
-                <img src="/src/assets/pgc.png" alt="Punjab Group of Colleges logo" className="w-12 h-12 rounded object-cover itu-badge" />
+                <img src="/assets/pgc.png" alt="Punjab Group of Colleges logo" className="w-12 h-12 rounded object-cover itu-badge" />
                 <div>
                   <div className="text-gray-200 font-medium">Punjab Group of Colleges</div>
                   <div className="text-sm text-gray-400">Pre-Engineering (2021–2023)</div>
                 </div>
               </a>
               <a href="https://lggs.edu.pk/" target="_blank" rel="noreferrer" className="itu-link inline-flex items-center gap-4 p-2 rounded mt-4" aria-label="Visit Lahore Grammar School website">
-                <img src="/src/assets/lggs.png" alt="Lahore Grammar School logo" className="w-12 h-12 rounded object-cover itu-badge" />
+                <img src="/assets/lggs.png" alt="Lahore Grammar School logo" className="w-12 h-12 rounded object-cover itu-badge" />
                 <div>
                   <div className="text-gray-200 font-medium">Lahore Grammar School</div>
                   <div className="text-sm text-gray-400">Matriculation (2006–2021)</div>
