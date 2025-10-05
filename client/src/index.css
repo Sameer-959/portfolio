@@ -11,13 +11,19 @@ html, body, #root { height: 100%; }
 /* Scroll reveal helper */
 [data-reveal]{
 	opacity: 0;
-	transform: translateY(18px) scale(0.995);
-	transition: opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1);
+	transition: opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1), filter 520ms cubic-bezier(.2,.9,.2,1);
 }
-[data-reveal].revealed{
-	opacity: 1;
-	transform: translateY(0) scale(1);
-}
+[data-reveal].revealed{ opacity: 1; transform: none; filter: none }
+
+/* Reveal variants */
+[data-reveal][data-anim="fade-up"]{ transform: translateY(18px) scale(0.995) }
+[data-reveal][data-anim="fade-in"]{ transform: scale(0.995) }
+[data-reveal][data-anim="slide-left"]{ transform: translateX(16px) }
+[data-reveal][data-anim="slide-right"]{ transform: translateX(-16px) }
+[data-reveal][data-anim="zoom-in"]{ transform: scale(0.92) }
+[data-reveal][data-anim="blur-in"]{ filter: blur(6px) }
+[data-reveal][data-anim="flip"]{ transform: perspective(700px) rotateX(20deg) translateY(12px); transform-origin: top; }
+[data-reveal].revealed[data-anim="flip"]{ transform: perspective(700px) rotateX(0deg) translateY(0) }
 
 /* Avatar float animation */
 .float-avatar{

@@ -151,5 +151,60 @@ app.get('/api/messages', (req, res) => {
   res.json(messages)
 })
 
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+// Fetch pinned and collaborated repos using GitHub GraphQL API
+async function fetchPinnedAndCollaboratedRepos() {
+  const query = `{
+    user(login: "${GITHUB_USERNAME}") {
+      pinnedItems(first: 6, types: REPOSITORY) {
+        nodes {
+          ... on Repository {
+            name
+            description
+            url
+            owner { login }
+            languages(first: 2) { nodes { name } }
+          }
+        }
+      }
+      repositoriesContributedTo(first: 6, contributionTypes: [COMMIT, PULL_REQUEST], includeUserRepositories: false) {
+        nodes {
+          name
+          description
+          url
+          owner { login }
+          languages(first: 2) { nodes { name } }
+        }
+      }
+    }
+  }`;
+  const res = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GITHUB_TOKEN}`,
+      'User-Agent': 'portfolio-app'
+    },
+    body: JSON.stringify({ query })
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`GitHub GraphQL error: ${res.status} ${text}`);
+  }
+  const data = await res.json();
+  return data.data.user;
+}
+
+app.get('/api/github/pinned-collab', async (req, res) => {
+  try {
+    const userData = await fetchPinnedAndCollaboratedRepos();
+    res.json(userData);
+  } catch (err) {
+    console.error('Failed to fetch pinned/collab repos', err);
+    res.status(500).json({ error: 'Could not fetch pinned/collaborated repos' });
+  }
+});
+
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log('Server running on', port))
