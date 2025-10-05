@@ -7,3 +7,61 @@ html, body, #root { height: 100%; }
 /* Fancy scroll bar */
 ::-webkit-scrollbar{height:10px}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#6b21a8,#4f46e5);border-radius:9999px}
+
+/* Scroll reveal helper */
+[data-reveal]{
+	opacity: 0;
+	transform: translateY(18px) scale(0.995);
+	transition: opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1);
+}
+[data-reveal].revealed{
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+/* Avatar float animation */
+.float-avatar{
+	animation: floaty 6s ease-in-out infinite;
+}
+@keyframes floaty{
+	0% { transform: translateY(0) }
+	50% { transform: translateY(-10px) }
+	100% { transform: translateY(0) }
+}
+
+/* CTA pulse (subtle) */
+.pulse-cta{
+	animation: pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse{
+	0% { transform: scale(1) }
+	50% { transform: scale(1.03) }
+	100% { transform: scale(1) }
+}
+
+/* Project card hover tilt */
+.project-card{ transition: transform 280ms cubic-bezier(.2,.9,.2,1), box-shadow 280ms; transform-origin: center; }
+.project-card:hover{ transform: perspective(600px) rotateX(3deg) translateY(-6px) scale(1.02); box-shadow: 0 18px 40px rgba(2,6,23,0.6); }
+
+/* ITU badge styles */
+.itu-badge{ transition: transform 220ms ease, box-shadow 220ms ease; }
+.itu-badge:hover, .itu-badge:focus{ transform: scale(1.04); box-shadow: 0 8px 20px rgba(0,0,0,0.6); cursor: pointer; }
+
+.itu-link{ transition: background-color 180ms, transform 180ms; }
+.itu-link:hover, .itu-link:focus{ background-color: rgba(255,255,255,0.02); transform: translateY(-3px); }
+
+/* Persistent side bar */
+.persistent-bar{ pointer-events:auto }
+.persistent-bar .bar-items{ background: #000; padding:8px 10px; border-radius:9999px; transition: transform 300ms cubic-bezier(.2,.9,.2,1); display:inline-flex; gap:8px; box-shadow: 0 6px 28px rgba(0,0,0,0.7); }
+.persistent-bar .bar-items .label{ display:none }
+
+/* tooltip labels above icons */
+.bar-item{ position:relative; display:inline-flex; align-items:center; justify-content:center; min-width:40px; height:40px; color:#ddd; text-decoration:none; border-radius:10px; background:transparent; transition: background 220ms, transform 200ms }
+.bar-item .label{ position:absolute; top:-46px; left:50%; transform:translateX(-50%) translateY(6px); background:white; color:#111; padding:6px 10px; border-radius:8px; font-size:0.85rem; box-shadow:0 8px 20px rgba(0,0,0,0.6); opacity:0; pointer-events:none; transition:opacity 240ms ease, transform 240ms cubic-bezier(.2,.9,.2,1); z-index:1200 }
+.bar-item:hover .label, .bar-item:focus .label{ opacity:1; transform:translateX(-50%) translateY(0) }
+.bar-item:hover{ transform: translateY(-4px); color:white; background: rgba(255,255,255,0.04) }
+.bar-items a.bar-item, .bar-items button.bar-item{ font-size:16px; padding:0 6px }
+
+/* ensure tooltip not clipped */
+.persistent-bar, .persistent-bar .bar-items, .bar-item{ overflow:visible }
+
