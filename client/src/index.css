@@ -22,4 +22,35 @@
 [data-reveal]{opacity:1;transform:none;filter:none;animation:reveal-in .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--delay,0ms)}@keyframes reveal-in{from{opacity:0;transform:translateY(20px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
 @media(max-width:920px){.hero-workspace{grid-template-columns:80px 1fr}.identity-panel{grid-column:2;width:min(360px,100%)}.signal-strip{grid-column:2}.about-workspace,.projects-workspace,.toolbox-workspace{grid-template-columns:110px 1fr;gap:30px}.project-canvas{grid-template-columns:1fr}.contact-workspace{padding:50px}}
 @media(max-width:680px){.workspace{width:min(100% - 28px,1240px)}.section-space{padding-top:105px}.hero-workspace{padding-top:40px;grid-template-columns:1fr}.hero-rail{display:none}.hero-main{padding:55px 0 10px}.hero-main h1{font-size:clamp(3.3rem,16vw,5.5rem)}.identity-panel,.signal-strip{grid-column:1}.signal-strip{grid-template-columns:1fr;gap:10px}.identity-panel{width:100%}.portrait-window{aspect-ratio:4/4.2}.about-workspace,.projects-workspace,.toolbox-workspace{grid-template-columns:1fr}.section-index{display:flex;gap:10px}.section-index span{margin:0}.about-columns{grid-template-columns:1fr;gap:18px}.section-title{display:block}.section-title p{margin-top:16px}.project-empty{grid-template-columns:1fr}.empty-visual{min-height:300px}.proof-note{grid-template-columns:45px 1fr}.proof-note>b{display:none}.tool-accordion article.open .tool-detail{padding-left:0}.contact-workspace{margin-top:105px;padding:38px 25px;align-items:flex-start;flex-direction:column}.contact-orbit{width:130px;height:130px}.footer{gap:10px;flex-direction:column}}
+/* Calm presentation layer */
+body::before{display:none}
+.workspace{width:min(980px,calc(100% - 48px))}
+.section-space{padding-top:112px}
+.hero-workspace{min-height:760px;padding:90px 0 70px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);grid-template-rows:auto;gap:72px;align-items:center}
+.hero-main{padding:0}
+.hero-main h1{max-width:680px;font-size:clamp(3.2rem,6.3vw,5.8rem);line-height:1.02;letter-spacing:-.06em}
+.hero-main h1 em{color:var(--muted);-webkit-text-stroke:0}
+.hero-lede{max-width:570px;margin-top:26px;font-size:1rem;line-height:1.7}
+.identity-panel{width:100%}
+.portrait-window{aspect-ratio:1/1;overflow:hidden;border-radius:24px;box-shadow:none}
+.portrait-window::after,.portrait-window>span{display:none}
+.identity-caption{border-bottom:0;padding:14px 2px}
+.identity-caption span{font-size:.66rem}
+.about-workspace,.projects-workspace,.toolbox-workspace{display:grid;grid-template-columns:120px 1fr;gap:42px}
+.section-index{padding-top:6px}
+.about-copy h2,.section-title h2,.contact-workspace h2{font-size:clamp(2.1rem,4.5vw,3.7rem);line-height:1.1;letter-spacing:-.05em}
+.about-columns{margin-top:35px;gap:35px}
+.about-columns p{font-size:.93rem;line-height:1.75}
+.proof-note{margin-top:38px}
+.section-title{align-items:start}
+.project-empty{min-height:0;margin-top:34px;display:block;border-radius:20px}
+.empty-copy{max-width:680px;padding:52px}
+.empty-copy h3{font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.12}
+.toolbox-main>.section-title{margin-bottom:30px}
+.tool-accordion button{padding:22px 0}
+.tool-accordion button strong{font-size:1.2rem}
+.contact-workspace{margin-top:120px;padding:55px;border-radius:22px}
+.contact-orbit{width:145px;height:145px}
+[data-reveal]{animation-duration:.5s;animation-timing-function:ease-out}
+@media(max-width:760px){.workspace{width:min(100% - 30px,980px)}.hero-workspace{min-height:auto;padding:105px 0 50px;grid-template-columns:1fr;gap:38px}.hero-main h1{font-size:clamp(3rem,14vw,4.7rem)}.identity-panel{max-width:330px}.about-workspace,.projects-workspace,.toolbox-workspace{grid-template-columns:1fr}.section-index{display:flex;gap:10px}.section-index span{margin:0}.about-columns{grid-template-columns:1fr}.empty-copy{padding:32px 24px}.contact-workspace{padding:38px 25px}.contact-orbit{width:125px;height:125px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}[data-reveal]{opacity:1;transform:none;filter:none}}

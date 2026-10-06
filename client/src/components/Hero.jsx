@@ -13,7 +13,6 @@ export default function Hero(){
 
   return <main>
     <section id="home" className="workspace hero-workspace">
-      <aside className="hero-rail" data-reveal><span className="rail-mark">SA/</span><span>Independent developer</span><i/><span>Available for meaningful work</span></aside>
       <div className="hero-main" data-reveal style={{'--delay':'70ms'}}>
         <p className="mono-label">Hello — I’m Sameer Aamir</p>
         <h1>Digital products,<br/><em>carefully engineered.</em></h1>
@@ -24,7 +23,6 @@ export default function Hero(){
         <div className="portrait-window"><img src="/assets/profile-avatar.png" alt="Sameer Aamir"/><span>01</span></div>
         <div className="identity-caption"><strong>Builder across the stack</strong><span>Web · Backend · Product</span></div>
       </div>
-      <div className="signal-strip" data-reveal><span>Currently exploring</span><div className="signal-track"><b>Interactive interfaces</b><i/> <b>Useful software</b><i/> <b>Thoughtful systems</b><i/> <b>Fast delivery</b></div></div>
     </section>
 
     <section id="about" className="workspace about-workspace section-space">
@@ -38,10 +36,7 @@ export default function Hero(){
       <div className="section-index" data-reveal><span>02</span><p>Selected work</p></div>
       <div className="projects-main">
         <div className="section-title" data-reveal><h2>New work is on the way.</h2><p>This archive is being rebuilt around stronger, original projects.</p></div>
-        <div className="project-empty" data-reveal>
-          <div className="empty-visual" aria-hidden="true"><span>01</span><i/><b>Next<br/>build</b></div>
-          <div className="empty-copy"><p className="mono-label">Project space reserved</p><h3>The next projects will earn their place here.</h3><p>I’m clearing out older work and building a more focused collection. New case studies will be added with the problem, process, technology, and result—not just a repository link.</p><a href="https://github.com/Sameer-959" target="_blank" rel="noreferrer">Follow progress on GitHub <Arrow/></a></div>
-        </div>
+        <div className="project-empty" data-reveal><div className="empty-copy"><p className="mono-label">Project space reserved</p><h3>The next projects will earn their place here.</h3><p>I’m building a more focused collection. New case studies will explain the problem, process, technology, and result—not just link to a repository.</p><a href="https://github.com/Sameer-959" target="_blank" rel="noreferrer">Follow progress on GitHub <Arrow/></a></div></div>
       </div>
     </section>
 
