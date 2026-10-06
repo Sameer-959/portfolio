@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 
 const projects = [
   { title: 'Portfolio', date: '2025 — Present', description: 'A responsive personal portfolio focused on strong storytelling, thoughtful interactions, and a polished experience across devices.', tags: ['React', 'Vite', 'Tailwind CSS'], repo: 'https://github.com/Sameer-959/portfolio', category: 'Web App' },
-  { title: 'Internship 2025', date: '2025', description: 'A collection of production-minded engineering work covering data workflows, backend integration, experimentation, and performance.', tags: ['Python', 'Node.js', 'APIs'], repo: 'https://github.com/Sameer-959/internship-2025', category: 'Engineering' },
   { title: 'Scrimba Question', date: '2025', description: 'A focused Python challenge project demonstrating practical problem solving, readable code, and careful implementation.', tags: ['Python', 'Problem Solving'], repo: 'https://github.com/Sameer-959/Scrimba-Question', category: 'Python' },
   { title: 'PetConnect', date: 'Collaborative Project', description: 'A social platform for pet owners, built around community, animal care, and a friendly end-to-end product experience.', tags: ['Full Stack', 'Social Platform', 'Teamwork'], repo: 'https://github.com/iam-hassan/PetConnect', category: 'Web App' },
   { title: 'Ani-Track', date: 'Collaborative Project', description: 'An anime discovery and tracking platform with personal lists, social features, and community engagement.', tags: ['Product', 'Community', 'Teamwork'], repo: 'https://github.com/Kenji-x-S/Ani-Track', category: 'Web App' }
@@ -32,18 +31,9 @@ export default function Hero() {
       <section id="about" className="content-width story-section">
         <h2 data-reveal>Why should you work with me?</h2>
         <div className="story-grid">
-          <div data-reveal><p>I build complete digital experiences—from a clear first idea to a responsive interface, practical backend, and reliable deployment. I care about the details that make software feel simple and trustworthy.</p><p>When I join a project, I bring thoughtful communication, fast iteration, and an ownership mindset. The goal is never just to write code; it is to ship something useful, maintainable, and genuinely pleasant to use.</p></div>
+          <div data-reveal><p>I build complete digital experiences—from a clear first idea to a responsive interface, practical backend, and reliable deployment. I care about the details that make software feel simple and trustworthy.</p><p>When I join a project, I bring thoughtful communication, fast iteration, and an ownership mindset. The goal is never just to write code; it is to ship something useful, maintainable, and genuinely pleasant to use.</p><div className="experience-note"><img src="/assets/arbisoft.png" alt="Arbisoft logo"/><div><strong>Industry experience at Arbisoft</strong><span>Engineering workflows, backend integration & collaboration · 2025</span></div></div></div>
           <div className="portrait-stamp" data-reveal style={{'--delay':'100ms'}}><img src="/assets/profile-avatar.png" alt="Portrait of Sameer Aamir"/><span>SA</span></div>
         </div>
-      </section>
-
-      <section id="experience" className="content-width section-block">
-        <p className="section-label" data-reveal>Experience</p>
-        <h2 data-reveal>Work that shaped how I build</h2>
-        <article className="work-card" data-reveal>
-          <img src="/assets/arbisoft.png" alt="Arbisoft logo"/>
-          <div><div className="work-title"><h3>Engineering Intern at Arbisoft</h3><span>2025</span></div><p>Worked on practical engineering workflows, backend integrations, repeatable experimentation, performance, and clear technical collaboration.</p><div className="chip-row"><span>Python</span><span>Backend</span><span>Data Workflows</span><span>Collaboration</span></div></div>
-        </article>
       </section>
 
       <section id="projects" className="content-width section-block">

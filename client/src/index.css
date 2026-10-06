@@ -40,6 +40,11 @@ svg { display:block; }
 .portrait-stamp img { width:180px; height:200px; display:block; object-fit:cover; border-radius:50% 50% 45% 45%; filter:saturate(.9); box-shadow:0 20px 40px rgba(76,60,32,.12); }
 .portrait-stamp::before { content:''; position:absolute; inset:-12px; z-index:-1; border-radius:50%; background:#f4dfb7; transform:rotate(8deg); }
 .portrait-stamp span { position:absolute; right:-13px; bottom:2px; width:48px; height:48px; display:grid; place-items:center; border:2px solid var(--paper); border-radius:50%; color:white; background:#1b1b19; font:700 .75rem 'Manrope',sans-serif; transform:rotate(7deg); }
+.experience-note { margin-top:30px; padding:14px 16px; display:flex; align-items:center; gap:13px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.42); }
+.experience-note img { width:40px; height:40px; padding:5px; object-fit:contain; border-radius:10px; background:#fff; }
+.experience-note div { display:flex; flex-direction:column; gap:3px; }
+.experience-note strong { font:700 .83rem 'Manrope',sans-serif; }
+.experience-note span { color:#888278; font-size:.7rem; line-height:1.4; }
 
 .section-label { margin:0 0 10px; color:#9a8271; font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
 .section-copy { max-width:650px; margin:16px 0 0; color:var(--muted); line-height:1.7; }
