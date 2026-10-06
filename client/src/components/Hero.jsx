@@ -1,239 +1,81 @@
-import React, { useEffect, useState } from 'react'
-import Stars from './Stars'
-import SkillBar from './SkillBar'
-import Rain from './Rain'
+import React, { useEffect } from 'react'
+
+const projects = [
+  { title: 'Portfolio', eyebrow: 'Featured build', description: 'A fast, responsive portfolio built with React, Vite, and Tailwind—designed to turn technical work into a clear professional story.', tags: ['React', 'Vite', 'Tailwind'], repo: 'https://github.com/Sameer-959/portfolio', accent: 'cyan' },
+  { title: 'Internship 2025', eyebrow: 'Machine learning', description: 'Applied machine-learning work spanning data preparation, experimentation, evaluation, and production-minded integration.', tags: ['Python', 'TensorFlow', 'Data'], repo: 'https://github.com/Sameer-959/internship-2025', accent: 'violet' },
+  { title: 'Scrimba Question', eyebrow: 'Python project', description: 'A focused Python challenge project demonstrating practical problem solving and clean implementation.', tags: ['Python', 'Problem Solving'], repo: 'https://github.com/Sameer-959/Scrimba-Question', accent: 'blue' }
+]
+
+const collaborations = [
+  { title: 'PetConnect', description: 'A social platform for pet owners combining community features with an AI assistant for animal care.', tags: ['AI', 'Social Platform', 'Full Stack'], repo: 'https://github.com/iam-hassan/PetConnect' },
+  { title: 'Ani-Track', description: 'An anime discovery and tracking platform with personal lists, social features, and community engagement.', tags: ['Community', 'Product', 'Collaboration'], repo: 'https://github.com/Kenji-x-S/Ani-Track' }
+]
+
+const skillGroups = [
+  { title: 'AI & Data', items: ['Python', 'TensorFlow', 'PyTorch', 'scikit-learn', 'Data Pipelines'] },
+  { title: 'Product Engineering', items: ['React', 'JavaScript', 'Node.js', 'Express', 'REST APIs'] },
+  { title: 'Tools & Systems', items: ['MongoDB', 'Git', 'C++', 'Vite', 'Deployment'] }
+]
+
+const GithubIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7A11.3 11.3 0 0 0 8.43 22.72c.57.1.78-.25.78-.55v-2.14c-3.18.69-3.85-1.35-3.85-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.54-.29-5.21-1.27-5.21-5.58 0-1.23.44-2.24 1.17-3.03-.12-.29-.51-1.46.11-2.99 0 0 .95-.3 3.11 1.16a10.85 10.85 0 0 1 5.67 0c2.16-1.46 3.11-1.16 3.11-1.16.62 1.53.23 2.7.11 2.99.73.79 1.17 1.8 1.17 3.03 0 4.32-2.68 5.29-5.23 5.57.41.35.78 1.05.78 2.12v3.15c0 .3.2.66.79.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
+const ArrowIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
 
 export default function Hero() {
-  const PINNED_PROJECTS = [
-    {
-      id: 'portfolio',
-      title: 'portfolio',
-      description: 'This portfolio site (React + Vite + Tailwind).',
-      repo: 'https://github.com/Sameer-959/portfolio'
-    },
-    {
-      id: 'internship-2025',
-      title: 'internship-2025',
-      description: 'My main internship project with collaboration.',
-      repo: 'https://github.com/Sameer-959/internship-2025'
-    },
-    {
-      id: 'Scrimba-Question',
-      title: 'Scrimba-Question',
-      description: 'A Python project for Scrimba challenge.',
-      repo: 'https://github.com/Sameer-959/Scrimba-Question'
-    }
-  ];
-
-  const COLLABORATED_PROJECTS = [
-    {
-      id: 'petconnect',
-      title: 'PetConnect',
-      description: 'PetConnect is a social network application focused on pets and animal care, featuring an AI assistant and social features for pet owners.',
-      repo: 'https://github.com/iam-hassan/PetConnect'
-    },
-    {
-      id: 'ani-track',
-      title: 'Ani-Track',
-      description: 'Ani-Track is a platform for anime fans inspired by MyAnimeList, with social features, anime lists, and community engagement.',
-      repo: 'https://github.com/Kenji-x-S/Ani-Track'
-    }
-  ];
-
   useEffect(() => {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('revealed')
-          obs.unobserve(e.target)
-        }
-      })
-    }, { threshold: 0.12 })
-
-    document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el))
-    return () => obs.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-    const nameEl = document.getElementById('hero-name')
-    if(!nameEl) return
-    const finalText = 'Sameer Aamir'
-    nameEl.setAttribute('aria-label', finalText)
-
-    const chars = finalText.split('')
-    const revealDelays = chars.map((_, i) => i * 4) // stagger each letter
-    const holdFrames = 22 // frames a letter scrambles before locking
-    const endFrame = revealDelays[revealDelays.length - 1] + holdFrames + 6
-
-    let frame = 0
-    const raf = () => {
-      const out = chars.map((ch, i) => {
-        const start = revealDelays[i]
-        if (frame >= start + holdFrames) return ch
-        if (frame >= start) return letters[Math.floor(Math.random() * letters.length)]
-        return ' '
-      })
-      nameEl.textContent = out.join('')
-      frame++
-      if (frame <= endFrame) requestAnimationFrame(raf)
-      else nameEl.textContent = finalText
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
+    }), { threshold: 0.12, rootMargin: '0px 0px -40px' })
+    document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el))
+    const handlePointer = (event) => {
+      document.documentElement.style.setProperty('--mouse-x', `${event.clientX}px`)
+      document.documentElement.style.setProperty('--mouse-y', `${event.clientY}px`)
     }
-
-    requestAnimationFrame(raf)
+    window.addEventListener('pointermove', handlePointer, { passive: true })
+    return () => { observer.disconnect(); window.removeEventListener('pointermove', handlePointer) }
   }, [])
 
   return (
-    <div className="relative">
-      <Rain />
-      <div className="absolute inset-0 bg-black/40 z-0" aria-hidden="true" />
-      <Stars />
-      <div className="relative z-10">
-        {/* Centered hero intro */}
-        <section className="min-h-screen flex items-center justify-center px-6">
-          <div className="max-w-3xl text-center p-8">
-            <div className="mx-auto w-32 h-32 rounded-full bg-neutral-900/40 ring-1 ring-white/10 overflow-hidden float-avatar mb-6" data-reveal data-anim="zoom-in">
-              <img
-                src="/assets/profile-avatar.png"
-                alt="Portrait of Sameer Aamir"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h1 className="text-5xl font-extrabold mb-6" data-reveal data-anim="fade-up"><span id="hero-name" className="bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">Sameer Aamir</span></h1>
-            <p className="mt-2 text-gray-300 max-w-2xl mx-auto mb-6" data-reveal data-anim="fade-in">I’m a Machine Learning and Full‑Stack Developer who enjoys turning ideas into polished, fast, and accessible products. I love shipping clean UIs, thoughtful APIs, and data‑driven features — from model training to deployment — with a strong focus on developer experience and performance.</p>
+    <main>
+      <div className="ambient-bg" aria-hidden="true"><div className="orb orb-one"/><div className="orb orb-two"/><div className="orb orb-three"/><div className="grid-overlay"/></div>
 
-            <div className="flex items-center justify-center gap-4 mb-6" data-reveal data-anim="fade-up">
-              <a href="#projects" className="px-6 py-3 bg-indigo-600 rounded-md shadow-lg hover:bg-indigo-500 transition transform pulse-cta">View Work</a>
-            </div>
+      <section id="home" className="hero-shell section-shell">
+        <div className="hero-copy" data-reveal>
+          <div className="availability-pill"><span className="status-dot"/>Open to internships & collaborations</div>
+          <p className="hero-kicker">Machine Learning · Full-Stack Engineering</p>
+          <h1>I build intelligent products that feel <span>effortless.</span></h1>
+          <p className="hero-description">I’m Sameer Aamir, a computer science student and developer crafting thoughtful AI systems, scalable APIs, and polished web experiences from idea to deployment.</p>
+          <div className="hero-actions"><a href="#projects" className="button button-primary">Explore my work <ArrowIcon/></a><a href="https://www.linkedin.com/in/SameerAamir/" target="_blank" rel="noreferrer" className="button button-secondary">Let’s connect</a></div>
+          <div className="hero-proof" aria-label="Professional highlights"><div><strong>5+</strong><span>Projects shipped</span></div><div><strong>2025</strong><span>ML internship</span></div><div><strong>2027</strong><span>Expected graduation</span></div></div>
+        </div>
+        <div className="hero-visual" data-reveal style={{ '--delay': '140ms' }}>
+          <div className="portrait-halo"/><div className="portrait-card"><div className="portrait-frame"><img src="/assets/profile-avatar.png" alt="Portrait of Sameer Aamir"/></div><div className="portrait-meta"><div><span>Based in</span><strong>Lahore, Pakistan</strong></div><div className="portrait-badge">Available</div></div></div>
+          <div className="floating-chip chip-ai">AI / ML</div><div className="floating-chip chip-code">React + Node</div>
+        </div>
+      </section>
 
-            {/* Removed social names/links here */}
-          </div>
-        </section>
+      <div className="tech-marquee" aria-label="Core technologies"><div className="marquee-track">{[...['Python','TensorFlow','React','Node.js','MongoDB','PyTorch'], ...['Python','TensorFlow','React','Node.js','MongoDB','PyTorch']].map((tech,index)=><span key={`${tech}-${index}`}>{tech}<i/></span>)}</div></div>
 
-        {/* Work Experience */}
-        <section className="mt-16 max-w-5xl mx-auto px-6" data-reveal data-anim="fade-in">
-          <h2 className="text-2xl font-bold mb-4">Work Experience</h2>
-          <div className="bg-neutral-900/30 rounded-xl p-4 ring-1 ring-white/6 flex items-start gap-4">
-            <img src="/assets/arbisoft.png" alt="Arbisoft logo" className="w-12 h-12 rounded object-contain bg-white/5 flex-shrink-0" />
-            <div>
-              <div className="text-gray-200 font-semibold">Arbisoft — ML Intern</div>
-              <div className="text-sm text-gray-400">2025 • Lahore, PK</div>
-              <ul className="mt-2 text-gray-300 list-disc list-inside space-y-1">
-                <li>Built and iterated ML workflows using TensorFlow and scikit‑learn for classification, regression, and embedding tasks.</li>
-                <li>Designed data pipelines for preprocessing, feature engineering, and evaluation; automated experiments and reporting.</li>
-                <li>Integrated trained models into Node.js services with clean APIs, monitoring, and performance profiling.</li>
-                <li>Collaborated with engineers on code reviews, reproducible notebooks, and deployment best practices.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+      <section id="experience" className="section-shell content-section">
+        <SectionHeading number="01" eyebrow="Experience" title="Building with real-world constraints" copy="Turning experiments into reliable, understandable systems through careful engineering and collaboration."/>
+        <article className="experience-card" data-reveal><div className="company-mark"><img src="/assets/arbisoft.png" alt="Arbisoft logo"/></div><div className="experience-main"><div className="experience-title-row"><div><h3>Machine Learning Intern</h3><p>Arbisoft · Lahore, Pakistan</p></div><span>2025</span></div><div className="experience-grid"><p>Built classification, regression, and embedding workflows using TensorFlow and scikit-learn.</p><p>Designed reproducible preprocessing, feature engineering, evaluation, and reporting pipelines.</p><p>Integrated trained models into Node.js services through clean, performance-aware APIs.</p><p>Collaborated through code reviews, technical documentation, and deployment best practices.</p></div></div></article>
+      </section>
 
-        {/* Solo Projects */}
-        <section className="mt-14 max-w-5xl mx-auto px-6" data-reveal data-anim="fade-in">
-          <h2 className="text-2xl font-bold mb-4">Solo Projects</h2>
-        </section>
+      <section id="projects" className="section-shell content-section"><SectionHeading number="02" eyebrow="Selected work" title="Projects with purpose" copy="A selection of products and experiments across web engineering, machine learning, and collaborative development."/><div className="project-grid">{projects.map((project,index)=><ProjectCard key={project.title} {...project} index={index}/>)}</div></section>
 
-        {/* Projects */}
-        <section id="projects" className="mt-4 max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 pb-12">
-          {PINNED_PROJECTS.length ? PINNED_PROJECTS.map((p, i) => <ProjectCard key={p.id} {...p} index={i} />) : (
-            <div className="col-span-full text-center text-gray-300 py-12" data-reveal data-anim="fade-in">No projects found.</div>
-          )}
-        </section>
+      <section className="section-shell content-section collaboration-section"><SectionHeading number="03" eyebrow="Teamwork" title="Built in collaboration" copy="Projects where shared ownership, communication, and product thinking mattered as much as the code."/><div className="collaboration-grid">{collaborations.map((project,index)=><a href={project.repo} target="_blank" rel="noreferrer" className="collab-card" data-reveal style={{'--delay':`${index*100}ms`}} key={project.title}><span className="collab-index">0{index+1}</span><div><h3>{project.title}</h3><p>{project.description}</p><div className="tag-row">{project.tags.map(tag=><span key={tag}>{tag}</span>)}</div></div><div className="round-arrow"><ArrowIcon/></div></a>)}</div></section>
 
-        {/* Collaborated Projects Section */}
-        <section id="collaborations" className="mt-20 max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 pb-16">
-          <h2 className="col-span-full text-2xl font-bold mb-4" data-reveal data-anim="slide-right">Collaborated Projects</h2>
-          {COLLABORATED_PROJECTS.length ? COLLABORATED_PROJECTS.map((p, i) => <ProjectCard key={p.id} {...p} index={i} />) : (
-            <div className="col-span-full text-center text-gray-300 py-12" data-reveal data-anim="fade-in">No collaborations found.</div>
-          )}
-        </section>
+      <section id="skills" className="section-shell content-section"><SectionHeading number="04" eyebrow="Capabilities" title="A practical, modern toolkit" copy="Technology choices guided by the problem—not trends, percentages, or buzzwords."/><div className="skills-grid">{skillGroups.map((group,index)=><article className="skill-card" data-reveal style={{'--delay':`${index*90}ms`}} key={group.title}><span className="skill-number">0{index+1}</span><h3>{group.title}</h3><div className="skill-list">{group.items.map(item=><span key={item}>{item}</span>)}</div></article>)}</div></section>
 
-        {/* Twitter contact section - just above Skills */}
-        <section className="max-w-3xl mx-auto mt-12 text-center" data-reveal data-anim="slide-left">
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight">Let’s Talk</h2>
-          <p className="mt-4 text-base md:text-lg text-gray-300">
-            Got an idea, question, or feedback? I’m most responsive on Twitter —
-            {' '}<a href="https://twitter.com/sameeramir95" target="_blank" rel="noreferrer" className="text-indigo-400 hover:text-indigo-300 underline underline-offset-4">send me a quick DM</a>
-            {' '}and I’ll get back as soon as I can.
-          </p>
-        </section>
+      <section id="education" className="section-shell content-section"><SectionHeading number="05" eyebrow="Education" title="Learning with momentum" copy="A computer science foundation strengthened by hands-on building and continuous independent learning."/><div className="education-list"><EducationItem logo="/assets/itu.jpeg" school="Information Technology University" degree="B.S. Computer Science" years="2023 — 2027" href="https://itu.edu.pk" delay="0ms"/><EducationItem logo="/assets/pgc.png" school="Punjab Group of Colleges" degree="Pre-Engineering" years="2021 — 2023" href="https://www.pgc.edu" delay="80ms"/><EducationItem logo="/assets/lggs.png" school="Lahore Grammar School" degree="Matriculation" years="Completed 2021" href="https://lggs.edu.pk/" delay="160ms"/></div></section>
 
-        {/* Move skills/education to the end */}
-        <section id="skills" className="mt-12 max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-4 pb-20">
-          <div className="p-4 bg-neutral-900/30 rounded" data-reveal>
-            <h3 className="font-semibold">Skills</h3>
-            <div className="mt-3">
-              <SkillBar skill="Python" level={92} />
-              <SkillBar skill="TensorFlow / PyTorch" level={82} />
-              <SkillBar skill="JavaScript & React" level={88} />
-              <SkillBar skill="Node.js & Express" level={80} />
-              <SkillBar skill="MongoDB" level={75} />
-              <SkillBar skill="C++" level={68} />
-            </div>
-          </div>
-
-          {/* Education section follows */}
-          <div className="p-4 bg-neutral-900/30 rounded" data-reveal>
-            <h3 className="font-semibold">Education</h3>
-            <div className="mt-3">
-              <a href="https://itu.edu.pk" target="_blank" rel="noreferrer" className="itu-link inline-flex items-center gap-4 p-2 rounded" aria-label="Visit Information Technology University website">
-                <img src="/assets/itu.jpeg" alt="Information Technology University logo" className="w-14 h-14 rounded object-cover itu-badge" />
-                <div>
-                  <div className="text-gray-200 font-medium">Information Technology University</div>
-                  <div className="text-sm text-gray-400">B.S. Computer Science (2023–2027)</div>
-                </div>
-              </a>
-              <a href="https://www.pgc.edu" target="_blank" rel="noreferrer" className="itu-link inline-flex items-center gap-4 p-2 rounded mt-4">
-                <img src="/assets/pgc.png" alt="Punjab Group of Colleges logo" className="w-12 h-12 rounded object-cover itu-badge" />
-                <div>
-                  <div className="text-gray-200 font-medium">Punjab Group of Colleges</div>
-                  <div className="text-sm text-gray-400">Pre-Engineering (2021–2023)</div>
-                </div>
-              </a>
-              <a href="https://lggs.edu.pk/" target="_blank" rel="noreferrer" className="itu-link inline-flex items-center gap-4 p-2 rounded mt-4" aria-label="Visit Lahore Grammar School website">
-                <img src="/assets/lggs.png" alt="Lahore Grammar School logo" className="w-12 h-12 rounded object-cover itu-badge" />
-                <div>
-                  <div className="text-gray-200 font-medium">Lahore Grammar School</div>
-                  <div className="text-sm text-gray-400">Matriculation (2006–2021)</div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div className="p-4 bg-neutral-900/30 rounded" data-reveal>
-            <h3 className="font-semibold">Interests</h3>
-            <ul className="mt-2 text-gray-300 list-disc list-inside space-y-1">
-              <li>Machine Learning and Applied AI</li>
-              <li>Deep Learning, LLMs, and Prompt Engineering</li>
-              <li>Full‑Stack Web (React, Node.js, Express)</li>
-              <li>System Design and Scalable Architectures</li>
-              <li>Open Source and Developer Tooling</li>
-              <li>Data Visualization and Product UX</li>
-              <li>Performance Optimization</li>
-            </ul>
-          </div>
-        </section>
-      </div>
-    </div>
+      <section id="contact" className="section-shell contact-section" data-reveal><p className="section-eyebrow"><span>06</span> Start a conversation</p><h2>Have an idea worth building?</h2><p>I’m always open to thoughtful projects, internship opportunities, and conversations about AI or product engineering.</p><div className="hero-actions contact-actions"><a href="https://www.linkedin.com/in/SameerAamir/" target="_blank" rel="noreferrer" className="button button-primary">Message on LinkedIn <ArrowIcon/></a><a href="https://github.com/Sameer-959" target="_blank" rel="noreferrer" className="button button-secondary"><GithubIcon/> View GitHub</a></div></section>
+      <footer className="section-shell footer"><span>© {new Date().getFullYear()} Sameer Aamir</span><span>Designed & built with intention.</span></footer>
+    </main>
   )
 }
 
-function ProjectCard({ title, description, repo, index }) {
-  return (
-    <article data-reveal data-anim="flip" className="project-card bg-neutral-900/30 p-6 rounded-xl backdrop-blur-sm ring-1 ring-white/6">
-      <div className="flex items-start justify-between">
-        <div>
-          <h3 className="text-2xl font-semibold">{title}</h3>
-          <p className="mt-2 text-gray-300">{description}</p>
-        </div>
-        <div className="flex flex-col items-end gap-2">
-          <div className="flex gap-2">
-            <a href={repo} target="_blank" rel="noreferrer" className="p-2 bg-neutral-800/40 rounded hover:bg-neutral-700/50 transition" data-reveal data-anim="zoom-in" aria-label={`Open ${title} on GitHub`} title="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.89.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.77.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.2-3.1-.12-.3-.52-1.53.11-3.18 0 0 .98-.31 3.2 1.18a11.1 11.1 0 012.92-.39c.99 0 1.99.13 2.92.39 2.22-1.5 3.2-1.18 3.2-1.18.63 1.65.23 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22 0 1.61-.01 2.9-.01 3.29 0 .32.22.7.83.58A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </article>
-  )
-}
+function SectionHeading({number,eyebrow,title,copy}) { return <div className="section-heading" data-reveal><p className="section-eyebrow"><span>{number}</span> {eyebrow}</p><div><h2>{title}</h2><p>{copy}</p></div></div> }
+
+function ProjectCard({title,eyebrow,description,tags,repo,accent,index}) { return <article className={`project-card accent-${accent}`} data-reveal style={{'--delay':`${index*100}ms`}}><div className="project-topline"><span>{eyebrow}</span><span>0{index+1}</span></div><div className="project-glow" aria-hidden="true"/><div className="project-content"><h3>{title}</h3><p>{description}</p><div className="tag-row">{tags.map(tag=><span key={tag}>{tag}</span>)}</div></div><a href={repo} target="_blank" rel="noreferrer" className="project-link" aria-label={`View ${title} on GitHub`}><GithubIcon/><span>View repository</span><ArrowIcon/></a></article> }
+
+function EducationItem({logo,school,degree,years,href,delay}) { return <a href={href} target="_blank" rel="noreferrer" className="education-item" data-reveal style={{'--delay':delay}}><img src={logo} alt=""/><div><h3>{school}</h3><p>{degree}</p></div><span>{years}</span><div className="round-arrow"><ArrowIcon/></div></a> }

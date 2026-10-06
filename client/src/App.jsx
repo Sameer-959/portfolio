@@ -4,7 +4,7 @@ import PersistentBar from './components/PersistentBar'
 
 export default function App(){
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="app-shell">
       <PersistentBar />
       <Hero />
     </div>
