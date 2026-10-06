@@ -1,69 +1,85 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 const projects = [
-  { title: 'Portfolio', date: '2025 — Present', description: 'A responsive personal portfolio focused on strong storytelling, thoughtful interactions, and a polished experience across devices.', tags: ['React', 'Vite', 'Tailwind CSS'], repo: 'https://github.com/Sameer-959/portfolio', category: 'Web App' },
-  { title: 'Scrimba Question', date: '2025', description: 'A focused Python challenge project demonstrating practical problem solving, readable code, and careful implementation.', tags: ['Python', 'Problem Solving'], repo: 'https://github.com/Sameer-959/Scrimba-Question', category: 'Python' },
-  { title: 'PetConnect', date: 'Collaborative Project', description: 'A social platform for pet owners, built around community, animal care, and a friendly end-to-end product experience.', tags: ['Full Stack', 'Social Platform', 'Teamwork'], repo: 'https://github.com/iam-hassan/PetConnect', category: 'Web App' },
-  { title: 'Ani-Track', date: 'Collaborative Project', description: 'An anime discovery and tracking platform with personal lists, social features, and community engagement.', tags: ['Product', 'Community', 'Teamwork'], repo: 'https://github.com/Kenji-x-S/Ani-Track', category: 'Web App' }
+  { title:'Portfolio System', number:'01', category:'Web Apps', year:'2025', description:'A responsive portfolio system focused on strong storytelling, thoughtful interaction, and a polished experience across devices.', tags:['React','Vite','Tailwind CSS'], repo:'https://github.com/Sameer-959/portfolio', tone:'mint' },
+  { title:'Scrimba Question', number:'02', category:'Python', year:'2025', description:'A focused Python challenge demonstrating practical problem solving, readable code, and careful implementation.', tags:['Python','Problem Solving'], repo:'https://github.com/Sameer-959/Scrimba-Question', tone:'lilac' },
+  { title:'PetConnect', number:'03', category:'Collaborations', year:'Team project', description:'A social platform for pet owners, shaped around community, animal care, and a friendly end-to-end experience.', tags:['Full Stack','Social Product','Teamwork'], repo:'https://github.com/iam-hassan/PetConnect', tone:'peach' },
+  { title:'Ani-Track', number:'04', category:'Collaborations', year:'Team project', description:'An anime discovery and tracking platform with personal lists, social features, and community engagement.', tags:['Product','Community','Teamwork'], repo:'https://github.com/Kenji-x-S/Ani-Track', tone:'blue' }
 ]
 
-const ArrowIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-const GithubIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7A11.3 11.3 0 0 0 8.43 22.72c.57.1.78-.25.78-.55v-2.14c-3.18.69-3.85-1.35-3.85-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.54-.29-5.21-1.27-5.21-5.58 0-1.23.44-2.24 1.17-3.03-.12-.29-.51-1.46.11-2.99 0 0 .95-.3 3.11 1.16a10.85 10.85 0 0 1 5.67 0c2.16-1.46 3.11-1.16 3.11-1.16.62 1.53.23 2.7.11 2.99.73.79 1.17 1.8 1.17 3.03 0 4.32-2.68 5.29-5.23 5.57.41.35.78 1.05.78 2.12v3.15c0 .3.2.66.79.55A11.3 11.3 0 0 0 12 .7Z"/></svg>
+const toolbox = [
+  { label:'Interfaces', text:'Responsive, accessible experiences with clear hierarchy and meaningful motion.', tools:['React','JavaScript','Tailwind','Vite'] },
+  { label:'Systems', text:'Maintainable services and APIs with dependable data flow and sensible architecture.', tools:['Node.js','Express','MongoDB','REST'] },
+  { label:'Delivery', text:'Ownership from planning and prototyping through testing, iteration, and deployment.', tools:['Git','Vercel','Product thinking','Collaboration'] }
+]
 
-export default function Hero() {
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
-    }), { threshold: 0.12, rootMargin: '0px 0px -35px' })
-    document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+const Arrow = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
 
-  return (
-    <main className="site-main">
-      <section id="home" className="intro content-width" data-reveal>
-        <div className="intro-line"><div className="mini-avatar"><img src="/assets/profile-avatar.png" alt="Sameer Aamir"/></div><strong>Hi, I’m Sameer <span className="wave">👋</span></strong></div>
-        <p className="intro-proof">I design and build useful digital products with clean interfaces, dependable code, and a sharp focus on the people using them.</p>
-        <h1>I build <span>web apps</span> and tools that turn ideas into products people enjoy using.</h1>
-        <div className="primary-actions"><a href="#projects" className="soft-button">See Projects <ArrowIcon/></a><a href="https://www.linkedin.com/in/SameerAamir/" target="_blank" rel="noreferrer" className="soft-button">Let’s Connect</a></div>
-      </section>
+export default function Hero(){
+  const [filter,setFilter]=useState('All')
+  const [openTool,setOpenTool]=useState(0)
+  const filtered=useMemo(()=>filter==='All'?projects:projects.filter(p=>p.category===filter),[filter])
 
-      <section id="about" className="content-width story-section">
-        <h2 data-reveal>Why should you work with me?</h2>
-        <div className="story-grid">
-          <div data-reveal><p>I build complete digital experiences—from a clear first idea to a responsive interface, practical backend, and reliable deployment. I care about the details that make software feel simple and trustworthy.</p><p>When I join a project, I bring thoughtful communication, fast iteration, and an ownership mindset. The goal is never just to write code; it is to ship something useful, maintainable, and genuinely pleasant to use.</p><div className="experience-note"><img src="/assets/arbisoft.png" alt="Arbisoft logo"/><div><strong>Industry experience at Arbisoft</strong><span>Engineering workflows, backend integration & collaboration · 2025</span></div></div></div>
-          <div className="portrait-stamp" data-reveal style={{'--delay':'100ms'}}><img src="/assets/profile-avatar.png" alt="Portrait of Sameer Aamir"/><span>SA</span></div>
-        </div>
-      </section>
+  useEffect(()=>{
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.12,rootMargin:'0px 0px -35px'})
+    document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el))
+    return()=>observer.disconnect()
+  },[])
 
-      <section id="projects" className="content-width section-block">
-        <p className="section-label" data-reveal>My Projects</p>
-        <h2 data-reveal>Check out my latest work</h2>
-        <p className="section-copy" data-reveal>I’ve worked across web products, backend systems, and collaborative applications. Here are the projects that best represent how I think and build.</p>
-        <div className="filter-row" data-reveal><span className="active">All</span><span>Web Apps</span><span>Engineering</span><span>Python</span></div>
-        <div className="project-list">{projects.map((project,index)=><Project key={project.title} {...project} index={index}/>)}</div>
-      </section>
+  return <main>
+    <section id="home" className="workspace hero-workspace">
+      <aside className="hero-rail" data-reveal><span className="rail-mark">SA/</span><span>Independent developer</span><i/><span>Available for meaningful work</span></aside>
+      <div className="hero-main" data-reveal style={{'--delay':'70ms'}}>
+        <p className="mono-label">Hello — I’m Sameer Aamir</p>
+        <h1>Digital products,<br/><em>carefully engineered.</em></h1>
+        <p className="hero-lede">I turn rough ideas into useful, responsive software—combining product thinking, clean interfaces, and dependable engineering.</p>
+        <div className="hero-actions"><a href="#projects" className="action primary">Browse selected work <Arrow/></a><a href="https://www.linkedin.com/in/SameerAamir/" target="_blank" rel="noreferrer" className="action text-action">Start a conversation ↗</a></div>
+      </div>
+      <div className="identity-panel" data-reveal style={{'--delay':'150ms'}}>
+        <div className="portrait-window"><img src="/assets/profile-avatar.png" alt="Sameer Aamir"/><span>01</span></div>
+        <div className="identity-caption"><strong>Builder across the stack</strong><span>Web · Backend · Product</span></div>
+      </div>
+      <div className="signal-strip" data-reveal><span>Currently exploring</span><div className="signal-track"><b>Interactive interfaces</b><i/> <b>Useful software</b><i/> <b>Thoughtful systems</b><i/> <b>Fast delivery</b></div></div>
+    </section>
 
-      <section id="capabilities" className="content-width section-block">
-        <p className="section-label" data-reveal>Capabilities</p>
-        <h2 data-reveal>What I bring to a project</h2>
-        <div className="capability-grid">
-          <article data-reveal><span>01</span><h3>Frontend Development</h3><p>Responsive, accessible interfaces with clear hierarchy, polished interaction, and strong performance.</p><div className="chip-row"><span>React</span><span>JavaScript</span><span>Tailwind</span><span>Vite</span></div></article>
-          <article data-reveal style={{'--delay':'90ms'}}><span>02</span><h3>Backend Development</h3><p>Practical APIs and services designed around maintainability, clear data flow, and reliable behavior.</p><div className="chip-row"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>REST APIs</span></div></article>
-          <article data-reveal style={{'--delay':'180ms'}}><span>03</span><h3>Product Engineering</h3><p>From understanding the real problem to planning, building, testing, and shipping the finished product.</p><div className="chip-row"><span>Git</span><span>Deployment</span><span>UX Thinking</span><span>Teamwork</span></div></article>
-        </div>
-      </section>
+    <section id="about" className="workspace about-workspace section-space">
+      <div className="section-index" data-reveal><span>01</span><p>How I work</p></div>
+      <div className="about-copy" data-reveal><h2>Good software starts with understanding the real problem.</h2><div className="about-columns"><p>I build complete digital experiences—from the first rough idea to a responsive interface, practical backend, and reliable deployment.</p><p>I bring clear communication, fast iteration, and an ownership mindset. The goal is not just code. It is a product that feels simple, useful, and built to last.</p></div>
+        <div className="proof-note"><img src="/assets/arbisoft.png" alt="Arbisoft logo"/><div><span>Industry experience</span><strong>Arbisoft · Engineering workflows and collaboration</strong></div><b>2025</b></div>
+      </div>
+    </section>
 
-      <section id="contact" className="content-width contact-block" data-reveal>
-        <p className="section-label">Contact</p><h2>Let’s build something worth shipping.</h2><p>Have a project, an opportunity, or a question? Send me a message on LinkedIn and I’ll get back to you.</p>
-        <div className="primary-actions"><a href="https://www.linkedin.com/in/SameerAamir/" target="_blank" rel="noreferrer" className="dark-button">Message me <ArrowIcon/></a><a href="https://github.com/Sameer-959" target="_blank" rel="noreferrer" className="soft-button"><GithubIcon/> GitHub</a></div>
-      </section>
+    <section id="projects" className="workspace projects-workspace section-space">
+      <div className="section-index" data-reveal><span>02</span><p>Selected work</p></div>
+      <div className="projects-main">
+        <div className="section-title" data-reveal><h2>A growing archive of things I’ve built.</h2><p>New, more ambitious projects will be added here as they ship.</p></div>
+        <div className="project-controls" data-reveal role="group" aria-label="Filter projects">{['All','Web Apps','Python','Collaborations'].map(item=><button key={item} type="button" onClick={()=>setFilter(item)} className={filter===item?'active':''} aria-pressed={filter===item}>{item}<span>{item==='All'?projects.length:projects.filter(p=>p.category===item).length}</span></button>)}</div>
+        <div className="project-canvas">{filtered.map((project,index)=><ProjectCard key={project.title} project={project} index={index}/>)}</div>
+      </div>
+    </section>
 
-      <footer className="content-width footer"><span>© {new Date().getFullYear()} Sameer Aamir</span><span>Built with care.</span></footer>
-    </main>
-  )
+    <section id="capabilities" className="workspace toolbox-workspace section-space">
+      <div className="section-index" data-reveal><span>03</span><p>Toolbox</p></div>
+      <div className="toolbox-main">
+        <div className="section-title" data-reveal><h2>Flexible by design.<br/>Focused on outcomes.</h2><p>I work across layers and choose tools around the problem, not the other way around.</p></div>
+        <div className="tool-accordion">{toolbox.map((item,index)=><article key={item.label} className={openTool===index?'open':''} data-reveal><button type="button" onClick={()=>setOpenTool(openTool===index?-1:index)} aria-expanded={openTool===index}><span>0{index+1}</span><strong>{item.label}</strong><i>{openTool===index?'−':'+'}</i></button><div className="tool-detail"><p>{item.text}</p><div>{item.tools.map(tool=><span key={tool}>{tool}</span>)}</div></div></article>)}</div>
+      </div>
+    </section>
+
+    <section id="contact" className="workspace contact-workspace section-space" data-reveal>
+      <div><p className="mono-label">Have something in mind?</p><h2>Let’s make it real.</h2></div>
+      <a href="https://www.linkedin.com/in/SameerAamir/" target="_blank" rel="noreferrer" className="contact-orbit"><span>Start a conversation</span><Arrow/></a>
+    </section>
+
+    <footer className="workspace footer"><span>Sameer Aamir · {new Date().getFullYear()}</span><span>Designed and built from scratch.</span></footer>
+  </main>
 }
 
-function Project({title,date,description,tags,repo,category,index}) {
-  return <article className="project-row" data-reveal style={{'--delay':`${Math.min(index*70,210)}ms`}}><div className="project-number">0{index+1}</div><div className="project-body"><div className="project-heading"><div><span>{category}</span><h3>{title}</h3></div><time>{date}</time></div><p>{description}</p><div className="chip-row">{tags.map(tag=><span key={tag}>{tag}</span>)}</div><a href={repo} target="_blank" rel="noreferrer">View Project <ArrowIcon/></a></div></article>
+function ProjectCard({project,index}){
+  return <article className={`project-tile tone-${project.tone}`} style={{'--delay':`${index*70}ms`}} data-reveal>
+    <div className="tile-head"><span>{project.number}</span><span>{project.category}</span><span>{project.year}</span></div>
+    <div className="tile-visual" aria-hidden="true"><div/><i/><b>{project.title.slice(0,2).toUpperCase()}</b></div>
+    <div className="tile-content"><h3>{project.title}</h3><p>{project.description}</p><div className="tile-tags">{project.tags.map(tag=><span key={tag}>{tag}</span>)}</div></div>
+    <a href={project.repo} target="_blank" rel="noreferrer" aria-label={`Open ${project.title} repository`}>View repository <Arrow/></a>
+  </article>
 }
