@@ -93,7 +93,11 @@ export default function Hero() {
         <section className="min-h-screen flex items-center justify-center px-6">
           <div className="max-w-3xl text-center p-8">
             <div className="mx-auto w-32 h-32 rounded-full bg-neutral-900/40 ring-1 ring-white/10 overflow-hidden float-avatar mb-6" data-reveal data-anim="zoom-in">
-              <img src="/assets/pfp.jpg" alt="Profile" className="w-full h-full object-cover" />
+              <img
+                src="/assets/profile-avatar.png"
+                alt="Portrait of Sameer Aamir"
+                className="w-full h-full object-cover"
+              />
             </div>
             <h1 className="text-5xl font-extrabold mb-6" data-reveal data-anim="fade-up"><span id="hero-name" className="bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">Sameer Aamir</span></h1>
             <p className="mt-2 text-gray-300 max-w-2xl mx-auto mb-6" data-reveal data-anim="fade-in">I’m a Machine Learning and Full‑Stack Developer who enjoys turning ideas into polished, fast, and accessible products. I love shipping clean UIs, thoughtful APIs, and data‑driven features — from model training to deployment — with a strong focus on developer experience and performance.</p>
